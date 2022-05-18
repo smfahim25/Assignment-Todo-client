@@ -9,7 +9,7 @@ import './Task.css';
 const Task = () => {
     const [task, setTask] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/task')
+        fetch('https://nameless-mesa-88008.herokuapp.com/task')
             .then(res => res.json())
             .then(data => setTask(data))
     }, [])
@@ -17,7 +17,7 @@ const Task = () => {
 
     const onSubmit = data => {
         console.log(data)
-        fetch('http://localhost:5000/task', {
+        fetch('https://nameless-mesa-88008.herokuapp.com/task', {
 
             method: 'POST',
             headers: {

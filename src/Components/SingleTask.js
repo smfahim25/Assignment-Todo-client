@@ -14,7 +14,7 @@ const SingleTask = ({ t }) => {
 
         const proceed = window.confirm("are you sure??")
         if (proceed) {
-            const url = `http://localhost:5000/task/${id}`
+            const url = `https://nameless-mesa-88008.herokuapp.com/task/${id}`
             fetch(url, {
                 method: 'DELETE',
             })
