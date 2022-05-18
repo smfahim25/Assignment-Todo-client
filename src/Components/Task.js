@@ -14,11 +14,9 @@ const Task = () => {
             .then(data => setTask(data))
     }, [])
     const { register, handleSubmit } = useForm();
-
     const onSubmit = data => {
         console.log(data)
         fetch('https://nameless-mesa-88008.herokuapp.com/task', {
-
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
