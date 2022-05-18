@@ -8,7 +8,6 @@ const SingleTask = ({ t }) => {
         console.log('line');
         setLinethrough(true)
         toast.success('you complete this task')
-
     }
     const handleDelete = (id) => {
 
