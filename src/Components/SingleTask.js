@@ -35,7 +35,6 @@ const SingleTask = ({ t }) => {
                 </div>
             </div>
             <ToastContainer />
-
         </div>
     );
 };
