@@ -1,27 +1,27 @@
 import { signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import auth from '../firebase.init';
-import SingleTask from './SingleTask';
 import image from '../images/to-do-list-apps.png';
 import './Task.css';
 
 const Task = () => {
-    const [task, setTask] = useState([])
-    useEffect(() => {
-        fetch('https://nameless-mesa-88008.herokuapp.com/task')
-            .then(res => res.json())
-            .then(data => setTask(data))
-    }, [])
+
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        console.log(data)
-        fetch('https://nameless-mesa-88008.herokuapp.com/task', {
+        // console.log(data)
+        const task = {
+            heading: data.heading,
+            description: data.description,
+            isCompleted: false
+        }
+        console.log(task);
+        fetch('http://localhost:5000/task', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(task)
         })
             .then(res => res.json())
             .then(result => {
@@ -36,25 +36,15 @@ const Task = () => {
     return (
         <div className='mt-5 bg-info'>
             <button onClick={logOut} className="btn btn-active btn-link text-black">Logout</button>
+            <h1 className='btn'><Link to='alltask'>All Task</Link></h1>
             <div className='mb-5'>
                 <h1 className='text-center text-xl underline-offset-4 font-bold'>Todo App</h1>
             </div>
             <form className='grid grid-cols-1 gap-2 justify-items-center' onSubmit={handleSubmit(onSubmit)}>
-                <input placeholder='name' className='input input-bordered  w-full max-w-xs' {...register("name")} />
+                <input placeholder='Heading' className='input input-bordered  w-full max-w-xs' {...register("heading")} />
                 <input placeholder='description' className='input input-bordered  w-full max-w-xs' {...register("description")} />
                 <input className='input input-bordered w-full btn btn-primary  max-w-xs' type="submit" />
             </form>
-            <h2 className='text-xl   underline-offset-4 text-center font-bold mt-10'>All Task:{task.length}</h2>
-            <div className='md:grid grid-cols-3 gap-y-5 my-5 justify-items-center'>
-                {
-                    task.map(t => <SingleTask
-                        key={t._id}
-                        t={t}
-                    ></SingleTask>)
-                }
-            </div>
-
-
         </div>
     );
 };
